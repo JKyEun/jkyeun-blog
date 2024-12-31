@@ -32,6 +32,24 @@ function BookmarkBlock({ block }: { block: any }) {
   );
 }
 
+function LinkPreviewBlock({ block }: { block: any }) {
+  const { url } = block.link_preview;
+
+  return (
+    <Link
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors my-4">
+      <div className="flex gap-4">
+        <div className="flex flex-col gap-1 flex-grow min-w-0">
+          <span className="text-sm text-blue-600 hover:underline truncate">{url}</span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export default function Block({ block }: { block: any }) {
   switch (block.type) {
     case 'paragraph':
@@ -73,7 +91,7 @@ export default function Block({ block }: { block: any }) {
     case 'code':
       return (
         <pre key={block.id} className="bg-gray-100 p-4 rounded-lg my-4">
-          <code>{block.code.rich_text[0]?.plain_text}</code>
+          <code className="text-gray-800">{block.code.rich_text[0]?.plain_text}</code>
         </pre>
       );
     case 'column_list':
@@ -97,6 +115,8 @@ export default function Block({ block }: { block: any }) {
       return <ImageBlock block={block} />;
     case 'bookmark':
       return <BookmarkBlock block={block} />;
+    case 'link_preview':
+      return <LinkPreviewBlock block={block} />;
     case 'divider':
       return <hr key={block.id} className="my-8 border-t border-gray-200" />;
     default:

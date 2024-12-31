@@ -102,15 +102,6 @@ export default function Block({ block }: { block: any }) {
           ))}
         </div>
       );
-    case 'child_page':
-      return (
-        <Link
-          href={`/${block.id}`}
-          key={block.id}
-          className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors mb-4">
-          <h2 className="text-xl font-semibold">{block.child_page.title}</h2>
-        </Link>
-      );
     case 'image':
       return <ImageBlock block={block} />;
     case 'bookmark':

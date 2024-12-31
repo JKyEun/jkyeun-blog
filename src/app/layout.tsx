@@ -24,10 +24,7 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body className="min-h-screen bg-white">
-        <Navigation pages={childPages} />
-        <div className="ml-64">
-          <div className="max-w-[980px] mx-auto">{children}</div>
-        </div>
+        <Navigation pages={childPages}>{children}</Navigation>
       </body>
     </html>
   );

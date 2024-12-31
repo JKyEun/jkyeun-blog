@@ -119,7 +119,7 @@ export default function Block({ block, isMainPage = false }: { block: any; isMai
             href={`/${block.id}`}
             key={block.id}
             className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors mb-4">
-            <h2 className="text-xl font-semibold">{block.child_page.title}</h2>
+            <h2 className="text-xl font-semibold mb-0 mt-0">{block.child_page.title}</h2>
           </Link>
         );
       }

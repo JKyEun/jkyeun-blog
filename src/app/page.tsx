@@ -1,17 +1,15 @@
-import { getChildPages } from '@/lib/notion';
-import Link from 'next/link';
+import Block from '@/components/Block';
+import { getPage } from '@/lib/notion';
 
 export default async function Home() {
-  const childPages = await getChildPages();
+  const page = await getPage();
 
   return (
     <main className="max-w-[980px] mx-auto py-7 px-4">
       <h1 className="text-3xl font-bold mb-6">공부 기록</h1>
       <div className="grid gap-4">
-        {childPages.map((page) => (
-          <Link key={page.id} href={`/${page.id}`} className="p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-            <h2 className="text-xl font-semibold">{page.title}</h2>
-          </Link>
+        {page.blocks.map((page) => (
+          <Block key={page.id} block={page} />
         ))}
       </div>
     </main>

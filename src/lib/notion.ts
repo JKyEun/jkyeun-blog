@@ -21,27 +21,3 @@ export async function getPage(pageId?: string) {
     blocks: blocks.results,
   };
 }
-
-export async function getChildPages() {
-  try {
-    const response = await notion.search({
-      filter: {
-        property: 'object',
-        value: 'page',
-      },
-      sort: {
-        direction: 'ascending',
-        timestamp: 'last_edited_time',
-      },
-    });
-
-    return response.results.map((page: any) => ({
-      id: page.id,
-      title: page.properties.title.title[0]?.plain_text || '제목 없음',
-      slug: page.id,
-    }));
-  } catch (error) {
-    console.error('Error fetching pages:', error);
-    return [];
-  }
-}

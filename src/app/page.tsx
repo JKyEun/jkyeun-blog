@@ -9,7 +9,7 @@ export default async function Home() {
       <h1 className="text-3xl font-bold mb-6">공부 기록</h1>
       <div className="grid gap-4">
         {page.blocks.map((page) => (
-          <Block key={page.id} block={page} />
+          <Block key={page.id} block={page} isMainPage />
         ))}
       </div>
     </main>

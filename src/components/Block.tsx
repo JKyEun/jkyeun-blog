@@ -50,7 +50,7 @@ function LinkPreviewBlock({ block }: { block: any }) {
   );
 }
 
-export default function Block({ block }: { block: any }) {
+export default function Block({ block, isMainPage = false }: { block: any; isMainPage?: boolean }) {
   switch (block.type) {
     case 'paragraph':
       return (
@@ -110,6 +110,19 @@ export default function Block({ block }: { block: any }) {
       return <LinkPreviewBlock block={block} />;
     case 'divider':
       return <hr key={block.id} className="my-8 border-t border-gray-200" />;
+    case 'child_page':
+      if (isMainPage) {
+        return null;
+      } else {
+        return (
+          <Link
+            href={`/${block.id}`}
+            key={block.id}
+            className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors mb-4">
+            <h2 className="text-xl font-semibold">{block.child_page.title}</h2>
+          </Link>
+        );
+      }
     default:
       console.log(block.type);
       return null;

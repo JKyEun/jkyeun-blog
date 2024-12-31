@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import '../styles/index.scss';
+import './globals.css';
 import GNB from '@/components/GNB';
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen bg-white">
         <GNB />
         {children}
       </body>

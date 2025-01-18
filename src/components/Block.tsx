@@ -1,12 +1,22 @@
+import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import Link from 'next/link';
 import Image from 'next/image';
 
-function ImageBlock({ block }: { block: any }) {
+type ImageBlockObjectResponse = Extract<BlockObjectResponse, { type: 'image' }>;
+type BookmarkBlockObjectResponse = Extract<BlockObjectResponse, { type: 'bookmark' }>;
+type LinkPreviewBlockObjectResponse = Extract<BlockObjectResponse, { type: 'link_preview' }>;
+type ColumnListBlockObjectResponse = Extract<BlockObjectResponse, { type: 'column_list' }> & {
+  column_list: {
+    children: Array<BlockObjectResponse & { children: BlockObjectResponse[] }>;
+  };
+};
+
+function ImageBlock({ block }: { block: ImageBlockObjectResponse }) {
   const imageUrl = block.image.type === 'external' ? block.image.external.url : block.image.file.url;
   const caption = block.image.caption?.length ? block.image.caption[0].plain_text : '';
 
   return (
-    <figure key={block.id} className="my-6">
+    <figure className="my-6">
       <div className="relative w-full h-[400px]">
         <Image src={imageUrl} alt={caption} fill className="object-contain" sizes="(max-width: 980px) 100vw, 980px" />
       </div>
@@ -15,7 +25,7 @@ function ImageBlock({ block }: { block: any }) {
   );
 }
 
-function BookmarkBlock({ block }: { block: any }) {
+function BookmarkBlock({ block }: { block: BookmarkBlockObjectResponse }) {
   const { url, caption } = block.bookmark;
 
   return (
@@ -26,13 +36,18 @@ function BookmarkBlock({ block }: { block: any }) {
       className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors my-4">
       <div className="flex flex-col gap-1">
         <span className="text-blue-600 hover:underline break-all">{url}</span>
-        {caption && <span className="text-sm text-gray-500">{caption}</span>}
+        {caption &&
+          caption.map((caption) => (
+            <span key={caption.href} className="text-sm text-gray-500">
+              {caption.plain_text}
+            </span>
+          ))}
       </div>
     </Link>
   );
 }
 
-function LinkPreviewBlock({ block }: { block: any }) {
+function LinkPreviewBlock({ block }: { block: LinkPreviewBlockObjectResponse }) {
   const { url } = block.link_preview;
 
   return (
@@ -50,7 +65,7 @@ function LinkPreviewBlock({ block }: { block: any }) {
   );
 }
 
-export default function Block({ block, isMainPage = false }: { block: any; isMainPage?: boolean }) {
+export default function Block({ block, isMainPage = false }: { block: BlockObjectResponse; isMainPage?: boolean }) {
   switch (block.type) {
     case 'paragraph':
       return (
@@ -95,13 +110,20 @@ export default function Block({ block, isMainPage = false }: { block: any; isMai
         </pre>
       );
     case 'column_list':
-      return (
-        <div key={block.id} className="grid grid-cols-2 gap-4 my-4">
-          {block.column_list.children?.map((column: any) => (
-            <div key={column.id}>{column.children?.map((block: any) => <Block key={block.id} block={block} />)}</div>
-          ))}
-        </div>
-      );
+      return (() => {
+        const columnListBlock = block as ColumnListBlockObjectResponse;
+        return (
+          <div key={block.id} className="grid grid-cols-2 gap-4 my-4">
+            {columnListBlock.column_list.children.map((column) => (
+              <div key={column.id}>
+                {column.children.map((childBlock) => (
+                  <Block key={childBlock.id} block={childBlock} />
+                ))}
+              </div>
+            ))}
+          </div>
+        );
+      })();
     case 'image':
       return <ImageBlock block={block} />;
     case 'bookmark':

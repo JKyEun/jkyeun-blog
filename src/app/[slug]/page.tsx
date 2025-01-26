@@ -1,4 +1,5 @@
 import Block from '@/components/Block';
+import PageContainer from '@/components/PageContainer';
 import { EnrichedBlockObjectResponse, getPage } from '@/lib/notion';
 import { notFound } from 'next/navigation';
 
@@ -12,14 +13,14 @@ export default async function SlugPage({ params }: { params: { slug: string } })
     };
 
     return (
-      <main className="max-w-[980px] mx-auto">
+      <PageContainer>
         <h1 className="text-4xl font-bold mb-8 text-gray-800">{getTitle()}</h1>
         <div className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-blue-600">
           {page.blocks.map((block: EnrichedBlockObjectResponse) => (
             <Block key={block.id} block={block} />
           ))}
         </div>
-      </main>
+      </PageContainer>
     );
   } catch {
     notFound();

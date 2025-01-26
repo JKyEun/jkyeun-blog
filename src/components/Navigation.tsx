@@ -1,24 +1,39 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 interface NavigationProps {
-  children: React.ReactNode;
+  menus: Extract<BlockObjectResponse, { type: 'child_page' }>[];
 }
 
-export default function Navigation({ children }: NavigationProps) {
+export default function Navigation({ menus }: NavigationProps) {
+  const pathname = usePathname();
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-10">
-        <div className="max-w-[1200px] mx-auto px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors">
-              JKyEun Blog
-            </Link>
+    <nav className="sticky top-0 left-0 right-0 bg-white shadow-md z-10">
+      <div className="max-w-[1200px] mx-auto px-8 py-4">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors">
+            JKyEun Blog
+          </Link>
+          <div className="flex gap-6">
+            {menus.map((menu) => {
+              return (
+                <Link
+                  key={menu.id}
+                  href={`/${menu.id}`}
+                  className={`text-lg hover:text-blue-600 transition-colors ${
+                    pathname.startsWith(`/${menu.id}`) ? 'text-blue-800' : 'text-gray-800'
+                  }`}>
+                  {menu.child_page.title}
+                </Link>
+              );
+            })}
           </div>
         </div>
-      </nav>
-      <div className="pt-20 bg-white shadow-inner">{children}</div>
-    </div>
+      </div>
+    </nav>
   );
 }

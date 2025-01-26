@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navigation from '@/components/Navigation';
-import { getPage } from '@/lib/notion';
 
 export const metadata: Metadata = {
   title: 'JKyEun Blog',
-  description: 'JKyEun Blog',
+  description: '프론트엔드 개발자 장경은의 블로그입니다.',
 };
 
 export default async function RootLayout({
@@ -13,18 +12,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const page = await getPage();
-  const childPages = page.blocks
-    .filter((block: any) => block.type === 'child_page')
-    .map((block: any) => ({
-      id: block.id,
-      title: block.child_page.title,
-    }));
-
   return (
     <html lang="ko">
       <body className="min-h-screen bg-white">
-        <Navigation pages={childPages}>{children}</Navigation>
+        <Navigation>{children}</Navigation>
       </body>
     </html>
   );

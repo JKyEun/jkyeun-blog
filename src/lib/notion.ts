@@ -62,3 +62,45 @@ export async function getPage(
     blocks: enrichedBlocks,
   };
 }
+
+export function extractPreviewText(blocks: BlockObjectResponse[]): string {
+  const textBlocks = blocks.filter((block) => {
+    return (
+      block.type === 'paragraph' ||
+      block.type === 'heading_1' ||
+      block.type === 'heading_2' ||
+      block.type === 'heading_3' ||
+      block.type === 'bulleted_list_item' ||
+      block.type === 'numbered_list_item'
+    );
+  });
+
+  let text = '';
+
+  for (const block of textBlocks) {
+    switch (block.type) {
+      case 'paragraph':
+        text += block.paragraph.rich_text.map((richText) => richText.plain_text).join('');
+        break;
+      case 'bulleted_list_item':
+        text += block.bulleted_list_item.rich_text.map((richText) => richText.plain_text).join('');
+        break;
+      case 'numbered_list_item':
+        text += block.numbered_list_item.rich_text.map((richText) => richText.plain_text).join('');
+        break;
+      case 'heading_1':
+        text += block.heading_1.rich_text.map((richText) => richText.plain_text).join('');
+        break;
+      case 'heading_2':
+        text += block.heading_2.rich_text.map((richText) => richText.plain_text).join('');
+        break;
+      case 'heading_3':
+        text += block.heading_3.rich_text.map((richText) => richText.plain_text).join('');
+        break;
+    }
+
+    text += ' ';
+  }
+
+  return text.slice(0, 400);
+}

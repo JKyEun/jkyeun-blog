@@ -3,6 +3,7 @@ import './globals.css';
 import Navigation from '@/components/Navigation';
 import { getPage } from '@/lib/notion';
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'JKyEun Blog',
@@ -24,6 +25,7 @@ export default async function RootLayout({
       <body className="min-h-screen bg-white">
         <Navigation menus={menus} />
         {children}
+        <Footer />
       </body>
     </html>
   );

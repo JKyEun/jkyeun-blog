@@ -13,7 +13,7 @@ export default function Navigation({ menus }: NavigationProps) {
 
   return (
     <nav className="sticky top-0 left-0 right-0 bg-white shadow-md z-10">
-      <div className="max-w-[1200px] mx-auto px-8 py-4">
+      <div className="max-w-[1440px] mx-auto px-8 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors">
             JKyEun Blog

@@ -1,2 +1,2 @@
-export { default as IconChevronLeft } from './chevron-left.svg';
-export { default as IconChevronRight } from './chevron-right.svg';
+export { default as IconGithub } from './github.svg';
+export { default as IconLinkedin } from './linkedin.svg';

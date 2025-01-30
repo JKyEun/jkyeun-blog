@@ -15,7 +15,7 @@ export default async function SlugPage({ params }: { params: { slug: string } })
     return (
       <PageContainer>
         <h1 className="text-3xl font-bold mb-8 text-gray-800">{getTitle()}</h1>
-        <div className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-blue-600">
+        <div className="space-y-4">
           {page.blocks.map((block: EnrichedBlockObjectResponse) => (
             <Block key={block.id} block={block} />
           ))}

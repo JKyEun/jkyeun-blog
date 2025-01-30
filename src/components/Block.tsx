@@ -69,6 +69,7 @@ function LinkPreviewBlock({ block }: { block: LinkPreviewBlockObjectResponse }) 
 }
 
 async function ChildPageBlock({ block }: { block: ChildPageBlockObjectResponse }) {
+  // TODO: 해당 컴포넌트에서 getPage 호출하지 않도록 개선
   const childPage = await getPage(block.id);
   const hasChildPages = childPage.blocks.some((block) => block.type === 'child_page');
 

@@ -1,14 +1,10 @@
 'use client';
 
+import { NAVIGATION_LIST } from '@/constants';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-interface NavigationProps {
-  menus: Extract<BlockObjectResponse, { type: 'child_page' }>[];
-}
-
-export default function Navigation({ menus }: NavigationProps) {
+export default function Navigation() {
   const pathname = usePathname();
 
   return (
@@ -19,18 +15,16 @@ export default function Navigation({ menus }: NavigationProps) {
             JKyEun Blog
           </Link>
           <div className="flex gap-6">
-            {menus.map((menu) => {
-              return (
-                <Link
-                  key={menu.id}
-                  href={`/${menu.id}`}
-                  className={`text-lg hover:text-blue-600 transition-colors ${
-                    pathname.startsWith(`/${menu.id}`) ? 'text-blue-800' : 'text-gray-800'
-                  }`}>
-                  {menu.child_page.title}
-                </Link>
-              );
-            })}
+            {NAVIGATION_LIST.map(({ id, title }) => (
+              <Link
+                key={id}
+                href={`/${title.toLowerCase()}`}
+                className={`text-lg hover:text-blue-600 transition-colors ${
+                  pathname.startsWith(`/${title.toLowerCase()}`) ? 'text-blue-800' : 'text-gray-800'
+                }`}>
+                {title}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

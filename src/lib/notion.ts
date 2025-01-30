@@ -104,3 +104,8 @@ export function extractPreviewText(blocks: BlockObjectResponse[]): string {
 
   return text.slice(0, 400);
 }
+
+export const getCategoryChildCount = async (categoryId: string) => {
+  const categoryPage = await getPage(categoryId);
+  return categoryPage.blocks.filter((block) => block.type === 'child_page').length;
+};

@@ -4,10 +4,10 @@ import PageContainer from '@/components/PageContainer';
 import Link from 'next/link';
 import { IconGithub, IconLinkedin } from '@/icons';
 import Image from 'next/image';
-import { PAGE_IDS } from '@/constants';
+import { PAGE_ROUTES } from '@/constants';
 
 export default async function MainPage() {
-  const allPosts = await getAllPosts(PAGE_IDS.POSTS);
+  const allPosts = await getAllPosts(PAGE_ROUTES.POSTS.id);
 
   return (
     <PageContainer>

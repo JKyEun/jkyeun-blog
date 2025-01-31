@@ -1,6 +1,6 @@
 'use client';
 
-import { NAVIGATION_LIST } from '@/constants';
+import { NAVIGATION_ITEMS } from '@/constants';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -15,7 +15,7 @@ export default function Navigation() {
             JKyEun Blog
           </Link>
           <div className="flex gap-6">
-            {NAVIGATION_LIST.map(({ id, title }) => (
+            {NAVIGATION_ITEMS.map(({ id, title }) => (
               <Link
                 key={id}
                 href={`/${title.toLowerCase()}`}

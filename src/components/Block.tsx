@@ -2,12 +2,10 @@ import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import Link from 'next/link';
 import Image from 'next/image';
 import PostCard from './PostCard';
-import { getPage } from '@/lib/notion';
 
 type ImageBlockObjectResponse = Extract<BlockObjectResponse, { type: 'image' }>;
 type BookmarkBlockObjectResponse = Extract<BlockObjectResponse, { type: 'bookmark' }>;
 type LinkPreviewBlockObjectResponse = Extract<BlockObjectResponse, { type: 'link_preview' }>;
-type ChildPageBlockObjectResponse = Extract<BlockObjectResponse, { type: 'child_page' }>;
 type ColumnListBlockObjectResponse = Extract<BlockObjectResponse, { type: 'column_list' }> & {
   column_list: {
     children: Array<BlockObjectResponse & { children: BlockObjectResponse[] }>;
@@ -66,24 +64,6 @@ function LinkPreviewBlock({ block }: { block: LinkPreviewBlockObjectResponse }) 
       </div>
     </Link>
   );
-}
-
-async function ChildPageBlock({ block }: { block: ChildPageBlockObjectResponse }) {
-  // TODO: 해당 컴포넌트에서 getPage 호출하지 않도록 개선
-  const childPage = await getPage(block.id);
-  const hasChildPages = childPage.blocks.some((block) => block.type === 'child_page');
-
-  if (hasChildPages) {
-    return (
-      <Link
-        href={`/${block.id}`}
-        className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors mb-4 no-underline">
-        <h2 className="text-xl font-semibold mb-0 mt-0">{block.child_page.title}</h2>
-      </Link>
-    );
-  }
-
-  return <PostCard id={block.id} title={block.child_page.title} createdTime={block.created_time} />;
 }
 
 export default function Block({ block }: { block: BlockObjectResponse }) {
@@ -154,7 +134,7 @@ export default function Block({ block }: { block: BlockObjectResponse }) {
     case 'divider':
       return <hr key={block.id} className="my-8 border-t border-gray-200" />;
     case 'child_page':
-      return <ChildPageBlock block={block} />;
+      return <PostCard id={block.id} title={block.child_page.title} createdTime={block.created_time} />;
     default:
       console.log(block.type);
       return null;

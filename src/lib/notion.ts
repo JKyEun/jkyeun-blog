@@ -109,3 +109,17 @@ export const getCategoryChildCount = async (categoryId: string) => {
   const categoryPage = await getPage(categoryId);
   return categoryPage.blocks.filter((block) => block.type === 'child_page').length;
 };
+
+export const getAllPosts = async (pageId: string) => {
+  const page = await getPage(pageId);
+  const categories = page.blocks.filter((block) => block.type === 'child_page');
+
+  const posts = await Promise.all(
+    categories.map(async (category) => {
+      const categoryPage = await getPage(category.id);
+      return categoryPage.blocks.filter((block) => block.type === 'child_page');
+    }),
+  );
+
+  return posts.flat().sort((a, b) => new Date(b.created_time).getTime() - new Date(a.created_time).getTime());
+};

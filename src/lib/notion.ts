@@ -5,26 +5,7 @@ export const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-async function getBlockChildren(blockId: string): Promise<BlockObjectResponse[]> {
-  const response = await notion.blocks.children.list({
-    block_id: blockId,
-    page_size: 100,
-  });
-
-  return response.results as BlockObjectResponse[];
-}
-
-type EnrichedColumnList = Extract<BlockObjectResponse, { type: 'column_list' }> & {
-  column_list: {
-    children: Array<BlockObjectResponse & { children: BlockObjectResponse[] }>;
-  };
-};
-
-export type EnrichedBlockObjectResponse = BlockObjectResponse | EnrichedColumnList;
-
-export async function getPage(
-  pageId?: string,
-): Promise<{ page: PageObjectResponse; blocks: EnrichedBlockObjectResponse[] }> {
+export async function getPage(pageId?: string): Promise<{ page: PageObjectResponse; blocks: BlockObjectResponse[] }> {
   const id = pageId || process.env.NOTION_PAGE_ID!;
 
   const page = await notion.pages.retrieve({
@@ -36,30 +17,9 @@ export async function getPage(
     page_size: 100,
   });
 
-  const enrichedBlocks = await Promise.all(
-    (blocks.results as BlockObjectResponse[]).map(async (block) => {
-      if (block.type === 'column_list') {
-        const columns = await getBlockChildren(block.id);
-
-        const columnsWithChildren = await Promise.all(
-          columns.map(async (column) => {
-            const children = await getBlockChildren(column.id);
-            return { ...column, children };
-          }),
-        );
-
-        return {
-          ...block,
-          column_list: { children: columnsWithChildren },
-        } as EnrichedColumnList;
-      }
-      return block;
-    }),
-  );
-
   return {
     page: page as PageObjectResponse,
-    blocks: enrichedBlocks,
+    blocks: blocks.results as BlockObjectResponse[],
   };
 }
 
@@ -112,12 +72,16 @@ export const getCategoryChildCount = async (categoryId: string) => {
 
 export const getAllPosts = async (pageId: string) => {
   const page = await getPage(pageId);
-  const categories = page.blocks.filter((block) => block.type === 'child_page');
+  const categories = page.blocks.filter(
+    (block): block is Extract<BlockObjectResponse, { type: 'child_page' }> => block.type === 'child_page',
+  );
 
   const posts = await Promise.all(
     categories.map(async (category) => {
       const categoryPage = await getPage(category.id);
-      return categoryPage.blocks.filter((block) => block.type === 'child_page');
+      return categoryPage.blocks.filter(
+        (block): block is Extract<BlockObjectResponse, { type: 'child_page' }> => block.type === 'child_page',
+      );
     }),
   );
 

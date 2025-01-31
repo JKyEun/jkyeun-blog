@@ -6,11 +6,6 @@ import PostCard from './PostCard';
 type ImageBlockObjectResponse = Extract<BlockObjectResponse, { type: 'image' }>;
 type BookmarkBlockObjectResponse = Extract<BlockObjectResponse, { type: 'bookmark' }>;
 type LinkPreviewBlockObjectResponse = Extract<BlockObjectResponse, { type: 'link_preview' }>;
-type ColumnListBlockObjectResponse = Extract<BlockObjectResponse, { type: 'column_list' }> & {
-  column_list: {
-    children: Array<BlockObjectResponse & { children: BlockObjectResponse[] }>;
-  };
-};
 
 function ImageBlock({ block }: { block: ImageBlockObjectResponse }) {
   const imageUrl = block.image.type === 'external' ? block.image.external.url : block.image.file.url;
@@ -110,21 +105,6 @@ export default function Block({ block }: { block: BlockObjectResponse }) {
           <code className="text-gray-800">{block.code.rich_text[0]?.plain_text}</code>
         </pre>
       );
-    case 'column_list':
-      return (() => {
-        const columnListBlock = block as ColumnListBlockObjectResponse;
-        return (
-          <div key={block.id} className="grid grid-cols-2 gap-4 my-4">
-            {columnListBlock.column_list.children.map((column) => (
-              <div key={column.id}>
-                {column.children.map((childBlock) => (
-                  <Block key={childBlock.id} block={childBlock} />
-                ))}
-              </div>
-            ))}
-          </div>
-        );
-      })();
     case 'image':
       return <ImageBlock block={block} />;
     case 'bookmark':

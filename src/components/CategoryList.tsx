@@ -22,7 +22,7 @@ export default async function CategoryList({ pageId, title }: { pageId: string; 
         {categoriesWithCount.map((category) => (
           <Link
             key={category.id}
-            href={`/${category.id}`}
+            href={`/${title.toLowerCase()}/${category.id}`}
             className="block bg-white rounded-lg shadow-sm border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all">
             <div className="p-6">
               <div className="flex items-center justify-between">

@@ -4,7 +4,6 @@ import { getPage } from '@/lib/notion';
 import { notFound } from 'next/navigation';
 
 export default async function SlugPage({ params }: { params: { slug: string } }) {
-  // TODO: PostList 컴포넌트 만들어서 분리하기
   try {
     const page = await getPage(params.slug);
 

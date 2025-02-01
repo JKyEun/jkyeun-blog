@@ -1,6 +1,7 @@
 import { extractPreviewText, getPage } from '@/lib/notion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { formatDate } from '@/utils';
 
 interface PostCardProps {
   id: string;
@@ -26,7 +27,7 @@ export default async function PostCard({ id, title, createdTime }: PostCardProps
             {title}
           </h2>
           <p className="text-gray-600 line-clamp-3">{preview}</p>
-          <div className="text-sm text-gray-500 mt-4">{new Date(createdTime).toLocaleDateString()}</div>
+          <div className="text-sm text-gray-500 mt-4">{formatDate(createdTime)}</div>
         </div>
         {imageUrl && (
           <div className="relative w-[150px] h-[150px] flex-shrink-0 overflow-hidden hidden md:block">

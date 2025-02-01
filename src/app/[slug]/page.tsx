@@ -1,6 +1,7 @@
 import Block from '@/components/Block';
 import PageContainer from '@/components/PageContainer';
 import { getPage } from '@/lib/notion';
+import { formatDate } from '@/utils';
 import { notFound } from 'next/navigation';
 
 export default async function SlugPage({ params }: { params: { slug: string } }) {
@@ -13,10 +14,13 @@ export default async function SlugPage({ params }: { params: { slug: string } })
     };
 
     return (
-      // TODO: 조금 더 게시글 상세페이지 같은 모습으로 수정하기
       <PageContainer>
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">{getTitle()}</h1>
-        <div className="space-y-4">
+        <header className="mb-16">
+          <h1 className="flex justify-center text-4xl font-bold mb-4 text-gray-900">{getTitle()}</h1>
+          <hr className="border-gray-200" />
+          <time className="flex justify-end mt-4 text-gray-600">{formatDate(page.page.created_time)}</time>
+        </header>
+        <div className="prose prose-lg max-w-none">
           {page.blocks.map((block) => (
             <Block key={block.id} block={block} />
           ))}

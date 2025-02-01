@@ -5,7 +5,15 @@ export const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-export async function getPage(pageId?: string): Promise<{ page: PageObjectResponse; blocks: BlockObjectResponse[] }> {
+export async function getPage(
+  pageId?: string,
+  cursor?: string,
+): Promise<{
+  page: PageObjectResponse;
+  blocks: BlockObjectResponse[];
+  next_cursor: string | null;
+  has_more: boolean;
+}> {
   const id = pageId || process.env.NOTION_PAGE_ID!;
 
   const page = await notion.pages.retrieve({
@@ -15,11 +23,14 @@ export async function getPage(pageId?: string): Promise<{ page: PageObjectRespon
   const blocks = await notion.blocks.children.list({
     block_id: id,
     page_size: 100,
+    start_cursor: cursor,
   });
 
   return {
     page: page as PageObjectResponse,
     blocks: blocks.results as BlockObjectResponse[],
+    next_cursor: blocks.next_cursor || null,
+    has_more: blocks.has_more,
   };
 }
 

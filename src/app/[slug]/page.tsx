@@ -1,8 +1,8 @@
-import Block from '@/components/Block';
 import PageContainer from '@/components/PageContainer';
 import { getPage } from '@/lib/notion';
 import { formatDate } from '@/utils';
 import { notFound } from 'next/navigation';
+import InfiniteBlocks from '@/components/InfiniteBlocks';
 
 export default async function SlugPage({ params }: { params: { slug: string } }) {
   try {
@@ -20,11 +20,12 @@ export default async function SlugPage({ params }: { params: { slug: string } })
           <hr className="border-gray-200" />
           <time className="flex justify-end mt-4 text-gray-600">{formatDate(page.page.created_time)}</time>
         </header>
-        <div className="prose prose-lg max-w-none">
-          {page.blocks.map((block) => (
-            <Block key={block.id} block={block} />
-          ))}
-        </div>
+        <InfiniteBlocks
+          initialBlocks={page.blocks}
+          pageId={params.slug}
+          hasMore={page.has_more}
+          initialCursor={page.next_cursor}
+        />
       </PageContainer>
     );
   } catch {

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import AnalyticsScript from '@/components/AnalyticsScript';
 
 export const metadata: Metadata = {
   title: 'JKyEun Blog',
@@ -15,6 +16,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <AnalyticsScript />
       <body className="min-h-screen bg-white">
         <Navigation />
         {children}

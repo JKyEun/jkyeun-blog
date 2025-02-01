@@ -15,7 +15,7 @@ export default async function SlugPage({ params }: { params: { slug: string } })
 
     return (
       <PageContainer>
-        <header className="mb-16">
+        <header className="mb-8">
           <h1 className="flex justify-center text-4xl font-bold mb-4 text-gray-900">{getTitle()}</h1>
           <hr className="border-gray-200" />
           <time className="flex justify-end mt-4 text-gray-600">{formatDate(page.page.created_time)}</time>

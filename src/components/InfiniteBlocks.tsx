@@ -53,7 +53,7 @@ export default function InfiniteBlocks({
   }, [cursor, hasMore, isLoading, pageId]);
 
   return (
-    <div className="prose prose-lg max-w-none">
+    <>
       {blocks.map((block) => (
         <Block key={block.id} block={block} />
       ))}
@@ -66,6 +66,6 @@ export default function InfiniteBlocks({
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }

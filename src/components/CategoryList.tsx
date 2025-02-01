@@ -23,7 +23,7 @@ export default async function CategoryList({ pageId, title }: { pageId: string; 
           <Link
             key={category.id}
             href={`/${title.toLowerCase()}/${category.id}`}
-            className="block bg-white rounded-lg shadow-sm border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all">
+            className="block bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-lg transition-all">
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">

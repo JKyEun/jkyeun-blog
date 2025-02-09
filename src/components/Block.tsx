@@ -31,7 +31,7 @@ function BookmarkBlock({ block }: { block: BookmarkBlockObjectResponse }) {
       rel="noopener noreferrer"
       className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors my-4">
       <div className="flex flex-col gap-1">
-        <span className="text-blue-600 hover:underline break-all">{url}</span>
+        <span className="text-indigo-600 hover:underline break-all">{url}</span>
         {caption &&
           caption.map((caption) => (
             <span key={caption.href} className="text-sm text-gray-500">
@@ -54,7 +54,7 @@ function LinkPreviewBlock({ block }: { block: LinkPreviewBlockObjectResponse }) 
       className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors my-4">
       <div className="flex gap-4">
         <div className="flex flex-col gap-1 flex-grow min-w-0">
-          <span className="text-sm text-blue-600 hover:underline truncate">{url}</span>
+          <span className="text-sm text-indigo-600 hover:underline truncate">{url}</span>
         </div>
       </div>
     </Link>
@@ -86,7 +86,7 @@ function RichText({ text }: { text: RichTextItemResponse }) {
     return (
       <a
         href={link.url}
-        className={`text-blue-600 hover:underline ${className}`}
+        className={`text-indigo-600 hover:underline ${className}`}
         target="_blank"
         rel="noopener noreferrer">
         {content}

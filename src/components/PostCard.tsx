@@ -23,7 +23,7 @@ export default async function PostCard({ id, title, createdTime }: PostCardProps
     <Link href={`/${id}`} className="group block">
       <article className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all p-6 border border-gray-100 flex gap-6">
         <div className="flex-1">
-          <h2 className="text-2xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors mb-2 line-clamp-2 break-all">
+          <h2 className="text-2xl font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors mb-2 line-clamp-2 break-all">
             {title}
           </h2>
           <p className="text-gray-600 line-clamp-3">{preview}</p>

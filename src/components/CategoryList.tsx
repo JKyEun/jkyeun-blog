@@ -26,7 +26,7 @@ export default async function CategoryList({ pageId, title }: { pageId: string; 
             className="block bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-lg transition-all">
             <div className="p-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+                <h2 className="text-xl font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors">
                   {category.child_page.title}
                 </h2>
                 <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">

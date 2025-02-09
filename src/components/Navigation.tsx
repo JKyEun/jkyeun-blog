@@ -19,7 +19,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className={`text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors ${sourceCodePro.className}`}>
+            className={`text-2xl font-bold text-gray-800 hover:text-indigo-600 transition-colors ${sourceCodePro.className}`}>
             &lt;JKyEun.Blog/&gt;
           </Link>
           <div className="flex gap-6">
@@ -27,7 +27,7 @@ export default function Navigation() {
               <Link
                 key={id}
                 href={`/${title.toLowerCase()}`}
-                className={`text-lg hover:text-blue-600 transition-colors ${
+                className={`text-lg hover:text-indigo-600 transition-colors ${
                   pathname.startsWith(`/${title.toLowerCase()}`) ? 'text-blue-800' : 'text-gray-800'
                 }`}>
                 {title}

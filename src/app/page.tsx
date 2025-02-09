@@ -6,6 +6,8 @@ import { IconGithub, IconLinkedin } from '@/icons';
 import Image from 'next/image';
 import { PAGE_ROUTES } from '@/constants';
 
+export const dynamic = 'force-static';
+
 export default async function MainPage() {
   const allPosts = await getAllPosts(PAGE_ROUTES.POSTS.id);
 

@@ -3,6 +3,20 @@ import { getPage } from '@/lib/notion';
 import { formatDate } from '@/utils';
 import { notFound } from 'next/navigation';
 import InfiniteBlocks from '@/components/InfiniteBlocks';
+import { getAllPosts } from '@/lib/notion';
+import { PAGE_ROUTES } from '@/constants';
+
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts(PAGE_ROUTES.POSTS.id);
+  const notesPage = await getPage(PAGE_ROUTES.NOTES.id);
+  const notes = notesPage.blocks.filter((block) => block.type === 'child_page');
+
+  return [...posts, ...notes].map((post) => ({
+    slug: post.id,
+  }));
+}
 
 export default async function SlugPage({ params }: { params: { slug: string } }) {
   try {

@@ -16,6 +16,7 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    unoptimized: true,
   },
   webpack(config) {
     config.module.rules.push({

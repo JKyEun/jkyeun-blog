@@ -9,12 +9,11 @@ import { PAGE_ROUTES } from '@/constants';
 export const dynamic = 'force-static';
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts(PAGE_ROUTES.POSTS.id);
-  const notesPage = await getPage(PAGE_ROUTES.NOTES.id);
-  const notes = notesPage.blocks.filter((block) => block.type === 'child_page');
+  const postsPages = await getAllPosts(PAGE_ROUTES.POSTS.id);
+  const notesPages = await getAllPosts(PAGE_ROUTES.NOTES.id);
 
-  return [...posts, ...notes].map((post) => ({
-    slug: post.id,
+  return [...postsPages, ...notesPages].map((page) => ({
+    slug: page.id,
   }));
 }
 

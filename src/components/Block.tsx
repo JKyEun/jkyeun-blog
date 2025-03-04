@@ -1,27 +1,12 @@
-import { BlockObjectResponse, RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+  BlockObjectResponse,
+  BookmarkBlockObjectResponse,
+  LinkPreviewBlockObjectResponse,
+  RichTextItemResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 import Link from 'next/link';
-import Image from 'next/image';
 import PostCard from './PostCard';
-import { getImageUrl, getLocalImageUrl } from '@/utils/image';
-
-type ImageBlockObjectResponse = Extract<BlockObjectResponse, { type: 'image' }>;
-type BookmarkBlockObjectResponse = Extract<BlockObjectResponse, { type: 'bookmark' }>;
-type LinkPreviewBlockObjectResponse = Extract<BlockObjectResponse, { type: 'link_preview' }>;
-
-async function ImageBlock({ block }: { block: ImageBlockObjectResponse }) {
-  const originalImageUrl = getImageUrl(block);
-  const imageUrl = await getLocalImageUrl(originalImageUrl);
-  const caption = block.image.caption?.length ? block.image.caption[0].plain_text : '';
-
-  return (
-    <figure className="my-6">
-      <div className="relative w-full h-[400px]">
-        <Image src={imageUrl} alt={caption} fill className="object-contain" sizes="(max-width: 980px) 100vw, 980px" />
-      </div>
-      {caption && <figcaption className="text-center text-sm text-gray-500 mt-2">{caption}</figcaption>}
-    </figure>
-  );
-}
+import ImageBlock from './ImageBlock';
 
 function BookmarkBlock({ block }: { block: BookmarkBlockObjectResponse }) {
   const { url, caption } = block.bookmark;

@@ -2,13 +2,15 @@ import { BlockObjectResponse, RichTextItemResponse } from '@notionhq/client/buil
 import Link from 'next/link';
 import Image from 'next/image';
 import PostCard from './PostCard';
+import { getImageUrl, getLocalImageUrl } from '@/utils/image';
 
 type ImageBlockObjectResponse = Extract<BlockObjectResponse, { type: 'image' }>;
 type BookmarkBlockObjectResponse = Extract<BlockObjectResponse, { type: 'bookmark' }>;
 type LinkPreviewBlockObjectResponse = Extract<BlockObjectResponse, { type: 'link_preview' }>;
 
-function ImageBlock({ block }: { block: ImageBlockObjectResponse }) {
-  const imageUrl = block.image.type === 'external' ? block.image.external.url : block.image.file.url;
+async function ImageBlock({ block }: { block: ImageBlockObjectResponse }) {
+  const originalImageUrl = getImageUrl(block);
+  const imageUrl = await getLocalImageUrl(originalImageUrl);
   const caption = block.image.caption?.length ? block.image.caption[0].plain_text : '';
 
   return (

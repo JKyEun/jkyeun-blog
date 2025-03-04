@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { BlockObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { Client } from '@notionhq/client';
 

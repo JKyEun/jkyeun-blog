@@ -1,6 +1,6 @@
 import PageContainer from '@/components/PageContainer';
 import { getPage } from '@/lib/notion';
-import { formatDate } from '@/utils';
+import { formatDate } from '@/utils/date';
 import { notFound } from 'next/navigation';
 import InfiniteBlocks from '@/components/InfiniteBlocks';
 import { getAllPosts } from '@/lib/notion';

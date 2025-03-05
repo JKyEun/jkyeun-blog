@@ -5,11 +5,9 @@ import sharp from 'sharp';
 import { getPage } from '@/lib/notion';
 import { PAGE_ROUTES } from '@/constants';
 import { ChildPageBlockObjectResponse, ImageBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
-import { getImageUrl } from '@/utils/image';
+import { getOriginalImageUrl } from '@/utils/image';
 
-const imageMap: Record<string, string> = {};
-
-async function downloadImage(imageUrl: string, fileName: string): Promise<string | null> {
+async function downloadImage(imageUrl: string, fileName: string) {
   try {
     const response = await axios.get<ArrayBuffer>(imageUrl, {
       responseType: 'arraybuffer',
@@ -22,34 +20,23 @@ async function downloadImage(imageUrl: string, fileName: string): Promise<string
       fs.mkdirSync(imagesDir, { recursive: true });
     }
 
-    await sharp(Buffer.from(response.data))
-      .webp({ quality: 80 })
-      .toFile(filePath.replace(/\.[^.]+$/, '.webp'));
-
-    return `/notion-images/${fileName.replace(/\.[^.]+$/, '.webp')}`;
+    await sharp(Buffer.from(response.data)).webp({ quality: 80 }).toFile(filePath);
   } catch (error) {
     console.error(error);
-    return null;
   }
 }
 
-async function processImageBlock(block: ImageBlockObjectResponse): Promise<void> {
+async function processImageBlock(block: ImageBlockObjectResponse) {
   if (block.type !== 'image') return;
 
-  const imageUrl = getImageUrl(block);
-
+  const imageUrl = getOriginalImageUrl(block);
   if (!imageUrl) return;
-  if (imageMap[imageUrl]) return;
 
   const fileName = `image-${block.id}.webp`;
-  const localPath = await downloadImage(imageUrl, fileName);
-
-  if (localPath) {
-    imageMap[imageUrl] = localPath;
-  }
+  await downloadImage(imageUrl, fileName);
 }
 
-async function processAllPosts(): Promise<void> {
+async function processAllPosts() {
   for (const route of Object.values(PAGE_ROUTES)) {
     const categoryPage = await getPage(route.id);
     const categories = categoryPage.blocks.filter(
@@ -73,19 +60,6 @@ async function processAllPosts(): Promise<void> {
       }
     }
   }
-
-  const dataDir = path.join(process.cwd(), 'public/data');
-  const jsonPath = path.join(dataDir, 'image-map.json');
-
-  if (fs.existsSync(jsonPath)) {
-    fs.unlinkSync(jsonPath);
-  }
-
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-
-  fs.writeFileSync(jsonPath, JSON.stringify(imageMap, null, 2));
 }
 
 try {

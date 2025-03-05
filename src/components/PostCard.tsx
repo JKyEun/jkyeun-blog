@@ -2,7 +2,7 @@ import { extractPreviewText, getPage } from '@/lib/notion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '@/utils/date';
-import { getImageUrl, getLocalImageUrl } from '@/utils/image';
+import { getLocalImageUrl } from '@/utils/image';
 
 interface PostCardProps {
   id: string;
@@ -17,9 +17,7 @@ export default async function PostCard({ id, title, createdTime }: PostCardProps
   const firstImageBlock = page.blocks.find((block) => block?.type === 'image') as
     | Extract<(typeof page.blocks)[number], { type: 'image' }>
     | undefined;
-
-  const originalImageUrl = firstImageBlock && getImageUrl(firstImageBlock);
-  const imageUrl = originalImageUrl && (await getLocalImageUrl(originalImageUrl));
+  const imageUrl = firstImageBlock && getLocalImageUrl(firstImageBlock.id);
 
   return (
     <Link href={`/${id}`} className="group block">

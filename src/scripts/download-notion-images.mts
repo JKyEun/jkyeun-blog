@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
+import sharp from 'sharp';
 import { getPage } from '@/lib/notion';
 import { PAGE_ROUTES } from '@/constants';
 import { ChildPageBlockObjectResponse, ImageBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
@@ -21,11 +22,13 @@ async function downloadImage(imageUrl: string, fileName: string): Promise<string
       fs.mkdirSync(imagesDir, { recursive: true });
     }
 
-    const uint8Array = new Uint8Array(response.data);
-    fs.writeFileSync(filePath, uint8Array);
+    await sharp(Buffer.from(response.data))
+      .webp({ quality: 80 })
+      .toFile(filePath.replace(/\.[^.]+$/, '.webp'));
 
-    return `/notion-images/${fileName}`;
+    return `/notion-images/${fileName.replace(/\.[^.]+$/, '.webp')}`;
   } catch (error) {
+    console.error(error);
     return null;
   }
 }
@@ -38,7 +41,7 @@ async function processImageBlock(block: ImageBlockObjectResponse): Promise<void>
   if (!imageUrl) return;
   if (imageMap[imageUrl]) return;
 
-  const fileName = `image-${block.id}.jpg`;
+  const fileName = `image-${block.id}.webp`;
   const localPath = await downloadImage(imageUrl, fileName);
 
   if (localPath) {

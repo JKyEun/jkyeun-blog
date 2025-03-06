@@ -30,13 +30,13 @@ export default function InfiniteBlocks({
         if (entries[0].isIntersecting && hasMore && !isLoading) {
           setIsLoading(true);
           try {
-            const data = await fetchBlocks(pageId, cursor || undefined);
+            const data = await fetchBlocks(pageId, cursor || '');
 
             setBlocks((prev) => [...prev, ...data.blocks]);
             setCursor(data.next_cursor);
             setHasMore(data.has_more);
           } catch (error) {
-            throw new Error('Failed to fetch more blocks');
+            console.error(error);
           } finally {
             setIsLoading(false);
           }

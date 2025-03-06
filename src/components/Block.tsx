@@ -1,6 +1,5 @@
 import {
   BlockObjectResponse,
-  BookmarkBlockObjectResponse,
   LinkPreviewBlockObjectResponse,
   RichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
@@ -8,28 +7,7 @@ import Link from 'next/link';
 import PostCard from './PostCard';
 import ImageBlock from './ImageBlock';
 import { Highlight, themes } from 'prism-react-renderer';
-
-function BookmarkBlock({ block }: { block: BookmarkBlockObjectResponse }) {
-  const { url, caption } = block.bookmark;
-
-  return (
-    <Link
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors my-4">
-      <div className="flex flex-col gap-1">
-        <span className="text-indigo-600 hover:underline break-all">{url}</span>
-        {caption &&
-          caption.map((caption) => (
-            <span key={caption.href} className="text-sm text-gray-500">
-              {caption.plain_text}
-            </span>
-          ))}
-      </div>
-    </Link>
-  );
-}
+import BookmarkBlock from './BookmarkBlock';
 
 function LinkPreviewBlock({ block }: { block: LinkPreviewBlockObjectResponse }) {
   const { url } = block.link_preview;

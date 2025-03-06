@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon.ico',
   },
-  description: '프론트엔드 개발자 장경은의 블로그입니다.',
+  description: '프론트엔드 개발자 장경은의 블로그',
   keywords: ['프론트엔드', '개발', '블로그', '장경은', '장경은 블로그', 'JKyEun', 'JKyEun Blog'],
   openGraph: {
     title: 'JKyEun Blog',
-    description: '프론트엔드 개발자 장경은의 블로그입니다.',
+    description: '프론트엔드 개발자 장경은의 블로그',
     url: 'https://jkyeun.com',
     siteName: 'JKyEun Blog',
     images: [{ url: 'https://jkyeun.com/images/og-image.png', width: 1200, height: 630 }],

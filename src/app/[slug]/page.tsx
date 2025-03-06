@@ -5,8 +5,37 @@ import { notFound } from 'next/navigation';
 import InfiniteBlocks from '@/components/InfiniteBlocks';
 import { getAllPosts } from '@/lib/notion';
 import { PAGE_ROUTES } from '@/constants';
+import { Metadata } from 'next';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
+const getTitle = (page: PageObjectResponse) => {
+  if (page.properties.title.type !== 'title') return null;
+  return page.properties.title.title[0]?.plain_text;
+};
 
 export const dynamic = 'force-static';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  try {
+    const page = await getPage(params.slug);
+    const title = getTitle(page.page) || '';
+
+    return {
+      title: title,
+      openGraph: {
+        title: title,
+        type: 'article',
+      },
+      alternates: {
+        canonical: `https://jkyeun.com/${params.slug}`,
+      },
+    };
+  } catch {
+    return {
+      title: '장경은 블로그',
+    };
+  }
+}
 
 export async function generateStaticParams() {
   const postsPages = await getAllPosts(PAGE_ROUTES.POSTS.id);
@@ -21,15 +50,10 @@ export default async function SlugPage({ params }: { params: { slug: string } })
   try {
     const page = await getPage(params.slug);
 
-    const getTitle = () => {
-      if (page.page.properties.title.type !== 'title') return null;
-      return page.page.properties.title.title[0]?.plain_text;
-    };
-
     return (
       <PageContainer>
         <header className="mb-8">
-          <h1 className="flex justify-center text-4xl font-bold mb-4 text-gray-900">{getTitle()}</h1>
+          <h1 className="flex justify-center text-4xl font-bold mb-4 text-gray-900">{getTitle(page.page)}</h1>
           <hr className="border-gray-200" />
           <time className="flex justify-end mt-4 text-gray-600">{formatDate(page.page.created_time)}</time>
         </header>

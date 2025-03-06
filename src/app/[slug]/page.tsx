@@ -24,7 +24,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: title,
       openGraph: {
         title: title,
+        description: '프론트엔드 개발자 장경은의 블로그',
         type: 'article',
+        url: 'https://jkyeun.com',
+        siteName: 'JKyEun Blog',
+        images: [{ url: 'https://jkyeun.com/images/og-image.png', width: 1200, height: 630 }],
+        locale: 'ko_KR',
       },
       alternates: {
         canonical: `https://jkyeun.com/${params.slug}`,

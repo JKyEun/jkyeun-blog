@@ -43,7 +43,7 @@ export default function BookmarkBlock({ block }: { block: BookmarkBlockObjectRes
           {ogData?.ogDescription && <p className="text-sm text-gray-500 line-clamp-2">{ogData.ogDescription}</p>}
           <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
             {ogData?.favicon && <Image src={faviconUrl} alt="" width={16} height={16} className="rounded" />}
-            <span className="truncate">{ogData?.ogSiteName}</span>
+            <span className="truncate">{ogData?.ogSiteName || ogData?.ogTitle}</span>
           </div>
           {caption &&
             caption.map((caption) => (

@@ -7,6 +7,7 @@ import {
 import Link from 'next/link';
 import PostCard from './PostCard';
 import ImageBlock from './ImageBlock';
+import { Highlight, themes } from 'prism-react-renderer';
 
 function BookmarkBlock({ block }: { block: BookmarkBlockObjectResponse }) {
   const { url, caption } = block.bookmark;
@@ -136,13 +137,21 @@ export default function Block({ block }: { block: BlockObjectResponse }) {
       );
     case 'code':
       return (
-        <pre key={block.id} className="bg-gray-100 p-4 rounded-lg my-4">
-          <code className="text-gray-800">
-            {block.code.rich_text.map((text, i) => (
-              <RichText key={i} text={text} />
-            ))}
-          </code>
-        </pre>
+        <div key={block.id} className="my-4 text-sm">
+          <Highlight theme={themes.github} code={block.code.rich_text[0].plain_text} language={block.code.language}>
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <pre className={`${className} p-4 rounded-lg overflow-auto`} style={style}>
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line })}>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
+            )}
+          </Highlight>
+        </div>
       );
     case 'image':
       return <ImageBlock block={block} />;
@@ -154,6 +163,14 @@ export default function Block({ block }: { block: BlockObjectResponse }) {
       return <hr key={block.id} className="my-8 border-t border-gray-200" />;
     case 'child_page':
       return <PostCard id={block.id} title={block.child_page.title} createdTime={block.created_time} />;
+    case 'quote':
+      return (
+        <blockquote key={block.id} className="border-l-4 border-gray-300 pl-4 my-4 italic">
+          {block.quote.rich_text.map((text, i) => (
+            <RichText key={i} text={text} />
+          ))}
+        </blockquote>
+      );
     default:
       console.log(block.type);
       return null;

@@ -67,7 +67,7 @@ export default function Block({ block }: { block: BlockObjectResponse }) {
   switch (block.type) {
     case 'paragraph':
       return (
-        <p key={block.id} className="mb-4">
+        <p key={block.id} className="mb-2 mt-2">
           {block.paragraph.rich_text.map((text, i) => (
             <RichText key={i} text={text} />
           ))}

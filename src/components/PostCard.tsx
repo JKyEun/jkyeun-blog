@@ -31,7 +31,13 @@ export default async function PostCard({ id, title, createdTime }: PostCardProps
         </div>
         {imageUrl && (
           <div className="relative w-[150px] h-[150px] flex-shrink-0 overflow-hidden hidden md:block">
-            <Image src={imageUrl} alt={title} width={150} height={150} className="object-cover rounded-md" />
+            <Image
+              src={imageUrl}
+              alt={`${title} 포스트의 대표 이미지`}
+              width={150}
+              height={150}
+              className="object-cover rounded-md"
+            />
           </div>
         )}
       </article>

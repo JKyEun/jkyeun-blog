@@ -50,7 +50,7 @@ export default async function MainPage() {
       '프론트엔드 개발자 장경은입니다. React, Next.js, TypeScript 등 프론트엔드 기술에 대한 글을 공유합니다.',
     url: 'https://jkyeun.com',
     sameAs: ['https://github.com/jkyeun', 'https://www.linkedin.com/in/jkyeun'],
-    image: 'https://jkyeun.com/images/jkyeun-profile.jpg',
+    image: 'https://jkyeun.com/images/jkyeun-profile.png',
   };
 
   const websiteJsonLd = {
@@ -78,7 +78,7 @@ export default async function MainPage() {
         <section className="mb-16 flex justify-center items-center">
           <div className="flex gap-6 md:gap-8">
             <Image
-              src="/images/jkyeun-profile.jpg"
+              src="/images/jkyeun-profile.png"
               alt="프로필 사진"
               width={160}
               height={160}

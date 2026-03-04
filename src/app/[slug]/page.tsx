@@ -20,14 +20,27 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   try {
     const page = await getPage(params.slug);
     const title = getTitle(page.page) || '';
-    const description = extractPreviewText(page.blocks) || '프론트엔드 개발자 장경은의 블로그 포스트입니다.';
+    const description = extractPreviewText(page.blocks) || '소프트웨어 엔지니어 장경은의 블로그 포스트입니다.';
     const publishedTime = new Date(page.page.created_time).toISOString();
     const modifiedTime = new Date(page.page.last_edited_time).toISOString();
 
     return {
       title: title,
       description: description,
-      keywords: ['프론트엔드', '개발', '블로그', '장경은', 'JKyEun', title],
+      keywords: [
+        '프론트엔드',
+        '백엔드',
+        '소프트웨어',
+        '개발',
+        '블로그',
+        '장경은',
+        'React',
+        'Next.js',
+        'TypeScript',
+        'JavaScript',
+        '웹개발',
+        title,
+      ],
       openGraph: {
         title: title,
         description: description,
@@ -53,7 +66,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   } catch {
     return {
       title: '장경은 블로그',
-      description: '프론트엔드 개발자 장경은의 블로그',
+      description: '소프트웨어 엔지니어 장경은의 블로그',
     };
   }
 }
@@ -71,7 +84,7 @@ export default async function SlugPage({ params }: { params: { slug: string } })
   try {
     const page = await getPage(params.slug);
     const title = getTitle(page.page) || '';
-    const description = extractPreviewText(page.blocks) || '프론트엔드 개발자 장경은의 블로그 포스트입니다.';
+    const description = extractPreviewText(page.blocks) || '소프트웨어 엔지니어 장경은의 블로그 포스트입니다.';
     const publishedTime = new Date(page.page.created_time).toISOString();
     const modifiedTime = new Date(page.page.last_edited_time).toISOString();
 

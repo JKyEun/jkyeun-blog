@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon.ico',
   },
-  description: '소프트웨어 엔지니어 장경은의 블로그',
+  description: '개발자 장경은의 블로그',
   keywords: [
     '프론트엔드',
     '백엔드',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'JKyEun Blog',
-    description: '소프트웨어 엔지니어 장경은의 블로그',
+    description: '개발자 장경은의 블로그',
     url: 'https://jkyeun.com',
     siteName: 'JKyEun Blog',
     images: [{ url: 'https://jkyeun.com/images/og-image.png', width: 1200, height: 630 }],

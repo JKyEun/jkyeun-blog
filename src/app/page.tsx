@@ -11,9 +11,8 @@ import { Metadata } from 'next';
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: 'JKyEun Blog - 소프트웨어 엔지니어 장경은의 블로그',
-  description:
-    '소프트웨어 엔지니어 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
+  title: 'JKyEun Blog - 개발자 장경은의 블로그',
+  description: '개발자 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
   keywords: [
     '프론트엔드',
     '백엔드',
@@ -28,9 +27,8 @@ export const metadata: Metadata = {
     '웹개발',
   ],
   openGraph: {
-    title: 'JKyEun Blog - 소프트웨어 엔지니어 장경은의 블로그',
-    description:
-      '소프트웨어 엔지니어 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
+    title: 'JKyEun Blog - 개발자 장경은의 블로그',
+    description: '개발자 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
     url: 'https://jkyeun.com',
     siteName: 'JKyEun Blog',
     images: [{ url: 'https://jkyeun.com/images/og-image.png', width: 1200, height: 630 }],
@@ -39,9 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'JKyEun Blog - 소프트웨어 엔지니어 장경은의 블로그',
-    description:
-      '소프트웨어 엔지니어 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
+    title: 'JKyEun Blog - 개발자 장경은의 블로그',
+    description: '개발자 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
     images: ['https://jkyeun.com/images/og-image.png'],
   },
   alternates: {
@@ -57,9 +54,8 @@ export default async function MainPage() {
     '@type': 'Person',
     name: '장경은',
     alternateName: 'JKyEun',
-    jobTitle: 'Software Engineer',
-    description:
-      '소프트웨어 엔지니어 장경은입니다. React, Next.js, TypeScript 등 소프트웨어 기술에 대한 글을 공유합니다.',
+    jobTitle: 'Product Engineer',
+    description: '개발자 장경은입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
     url: 'https://jkyeun.com',
     sameAs: ['https://github.com/jkyeun', 'https://www.linkedin.com/in/jkyeun'],
     image: 'https://jkyeun.com/images/jkyeun-profile.png',
@@ -69,8 +65,7 @@ export default async function MainPage() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'JKyEun Blog',
-    description:
-      '소프트웨어 엔지니어 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
+    description: '개발자 장경은의 블로그입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
     url: 'https://jkyeun.com',
     author: {
       '@type': 'Person',
@@ -99,7 +94,7 @@ export default async function MainPage() {
             />
             <div>
               <h1 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2">JKyEun</h1>
-              <h2 className="text-lg md:text-2xl text-gray-600 mb-2 md:mb-4">Software Engineer</h2>
+              <h2 className="text-lg md:text-2xl text-gray-600 mb-2 md:mb-4">Product Engineer</h2>
               <p className="text-gray-700 mb-4">꾸준히 학습하고 이를 공유하기 위한 공간입니다.</p>
               <div className="flex gap-4">
                 <Link href="https://github.com/jkyeun" target="_blank" rel="noopener noreferrer">

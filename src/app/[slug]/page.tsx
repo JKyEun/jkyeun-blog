@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   try {
     const page = await getPage(params.slug);
     const title = getTitle(page.page) || '';
-    const description = extractPreviewText(page.blocks) || '소프트웨어 엔지니어 장경은의 블로그 포스트입니다.';
+    const description = extractPreviewText(page.blocks) || '개발자 장경은의 블로그 포스트입니다.';
     const publishedTime = new Date(page.page.created_time).toISOString();
     const modifiedTime = new Date(page.page.last_edited_time).toISOString();
 
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   } catch {
     return {
       title: '장경은 블로그',
-      description: '소프트웨어 엔지니어 장경은의 블로그',
+      description: '개발자 장경은의 블로그',
     };
   }
 }
@@ -84,7 +84,7 @@ export default async function SlugPage({ params }: { params: { slug: string } })
   try {
     const page = await getPage(params.slug);
     const title = getTitle(page.page) || '';
-    const description = extractPreviewText(page.blocks) || '소프트웨어 엔지니어 장경은의 블로그 포스트입니다.';
+    const description = extractPreviewText(page.blocks) || '개발자 장경은의 블로그 포스트입니다.';
     const publishedTime = new Date(page.page.created_time).toISOString();
     const modifiedTime = new Date(page.page.last_edited_time).toISOString();
 

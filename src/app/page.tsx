@@ -54,7 +54,7 @@ export default async function MainPage() {
     '@type': 'Person',
     name: '장경은',
     alternateName: 'JKyEun',
-    jobTitle: 'Product Engineer',
+    jobTitle: 'Product Builder',
     description: '개발자 장경은입니다. React, Next.js, TypeScript 등 개발 기술에 대한 글을 공유합니다.',
     url: 'https://jkyeun.com',
     sameAs: ['https://github.com/jkyeun', 'https://www.linkedin.com/in/jkyeun'],
@@ -94,7 +94,7 @@ export default async function MainPage() {
             />
             <div>
               <h1 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2">JKyEun</h1>
-              <h2 className="text-lg md:text-2xl text-gray-600 mb-2 md:mb-4">Product Engineer</h2>
+              <h2 className="text-lg md:text-2xl text-gray-600 mb-2 md:mb-4">Product Builder</h2>
               <p className="text-gray-700 mb-4">꾸준히 학습하고 이를 공유하기 위한 공간입니다.</p>
               <div className="flex gap-4">
                 <Link href="https://github.com/jkyeun" target="_blank" rel="noopener noreferrer">
